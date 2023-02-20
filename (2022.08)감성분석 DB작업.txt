@@ -1,0 +1,23 @@
+< 컬럼 추가>
+문법) ALTER TABLE `테이블명` ADD `컬럼명` 자료형 default 초기값;
+
+- 분석대상 테이블에 2개의 컬럼 추가
+ex)
+ALTER TABLE `2019_cgv` ADD `posneg_rate` float default 0;
+ALTER TABLE `2019_cgv` ADD `posneg_grade` VARCHAR(10) default 'W';
+
+< 컬럼 초기화 >
+문법) UPDATE `테이블명` SET `posneg_rate`=0,`posneg_grade`='W'
+ex) 
+UPDATE `2019_cgv` SET `posneg_rate`=0,`posneg_grade`='W'
+
+< 분석결과 정리>
+SELECT ROUND(`posneg_rate`,0),`posneg_grade`, count(*)
+FROM `nblog` 
+group by ROUND(`posneg_rate`,0),`posneg_grade`
+order by `posneg_grade`, ROUND(`posneg_rate`,0)
+
+<분석진행 경과 확인>
+SELECT posneg_grade, count(*) 
+FROM `tooncomment_best` 
+group by `posneg_grade`
